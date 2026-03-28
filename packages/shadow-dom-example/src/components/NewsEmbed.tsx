@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useShadowDom } from "../hooks/useShadowDom";
+import { useShadowDom } from "../hooks/use-shadow-dom";
 import articleHtml from "../../../../shared/news-content/article.html?raw";
 import articleCss from "../../../../shared/news-content/article.css?raw";
 import articleJs from "../../../../shared/news-content/article.js?raw";
@@ -36,6 +36,7 @@ export function NewsEmbed({ onNewsAction, darkMode }: NewsEmbedProps) {
     const article = shadow.querySelector(".news-article");
     article?.classList.toggle("dark-mode", !!darkMode);
   }, [shadowRef, darkMode]);
+
 
   return (
     <div

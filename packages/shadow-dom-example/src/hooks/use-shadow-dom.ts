@@ -36,6 +36,7 @@ export function useShadowDom({
 		container.innerHTML = html;
 		shadow.appendChild(container);
 
+
 		// Execute external JS with a document proxy that scopes
 		// DOM queries to the shadow root
 		if (js) {

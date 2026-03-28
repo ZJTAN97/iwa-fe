@@ -1,5 +1,13 @@
 # Research on ShadowDOM vs iframe.
 
+## Requirements
+
+1. Must be able to run JS
+2. Can prevent bleeding of parent app's CSS into product
+3. Ideally can interact with product's html easily. (with iframe the pain is having to inject js into the iframe and retrieve the output in the parent / react app before firing things like telemetry to BE)
+4. Can integrate with TOC
+5. Must integrate with Digital Production
+
 ## Shadow DOM 
 
 - Encapsulation as Composability.
