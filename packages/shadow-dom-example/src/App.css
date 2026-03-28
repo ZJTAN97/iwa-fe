@@ -1,0 +1,235 @@
+/*
+ * Host application styles.
+ * Intentionally uses broad selectors to demonstrate
+ * that Shadow DOM provides style isolation.
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+h1, h2, h3 {
+  color: #00b894;
+}
+
+a {
+  color: #0984e3;
+}
+
+p {
+  line-height: 1.6;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.app-header {
+  background: linear-gradient(135deg, #00b894 0%, #55efc4 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.app-header h1 {
+  color: white;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.app-header p {
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.app-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.app-content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.app-sidebar {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.app-sidebar h2 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.app-sidebar ul {
+  list-style: none;
+}
+
+.app-sidebar li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.app-sidebar li:last-child {
+  border-bottom: none;
+}
+
+.embed-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.embed-label {
+  background: #dfe6e9;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #636e72;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.event-log {
+  margin-top: 2rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.event-log h2 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.event-log-entries {
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 0.8rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.event-log-entry {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  color: #555;
+}
+
+.event-log-empty {
+  color: #999;
+  font-style: italic;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dark-mode-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.dark-mode-hint {
+  font-size: 0.8rem;
+  opacity: 0.75;
+  margin-top: 0.75rem;
+}
+
+/* Host app dark mode */
+.app-dark {
+  background: #1a1a2e;
+  min-height: 100vh;
+}
+
+.app-dark body,
+body:has(.app-dark) {
+  background: #1a1a2e;
+}
+
+.app-dark .app-header {
+  background: linear-gradient(135deg, #0a7b6a 0%, #1dd1a1 100%);
+}
+
+.app-dark .app-sidebar {
+  background: #16213e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.app-dark .app-sidebar h2 {
+  color: #55efc4;
+}
+
+.app-dark .app-sidebar li {
+  border-bottom-color: #2d2d4e;
+  color: #ccc;
+}
+
+.app-dark .embed-container {
+  background: #16213e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.app-dark .embed-label {
+  background: #2d2d4e;
+  color: #aaa;
+}
+
+.app-dark .event-log {
+  background: #16213e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.app-dark .event-log h2 {
+  color: #55efc4;
+}
+
+.app-dark .event-log-entry {
+  color: #bbb;
+  border-bottom-color: #2d2d4e;
+}
+
+.app-dark .event-log-empty {
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    grid-template-columns: 1fr;
+  }
+}
