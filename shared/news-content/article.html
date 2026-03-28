@@ -1,91 +1,244 @@
 <article class="news-article">
-  <header class="news-header">
-    <span class="news-category">Technology</span>
-    <h1 class="news-title">The Future of Web Components: Shadow DOM and Beyond</h1>
-    <div class="news-meta">
-      <img class="news-avatar" src="https://i.pravatar.cc/40?img=12" alt="Author avatar" />
-      <div class="news-meta-text">
-        <span class="news-author">By Sarah Chen</span>
-        <time class="news-date" datetime="2026-03-25">March 25, 2026</time>
-      </div>
-    </div>
-  </header>
-
-  <figure class="news-hero">
-    <img src="https://picsum.photos/seed/webcomponents/800/400" alt="Abstract web components illustration" />
-    <figcaption>Web components are reshaping how we build modern applications</figcaption>
-  </figure>
-
-  <div class="news-body">
-    <p class="news-lead">
-      As web applications grow increasingly complex, developers are turning to encapsulation
-      strategies that promise better isolation, maintainability, and performance. Shadow DOM,
-      once a niche browser API, is now at the center of this conversation.
-    </p>
-
-    <p>
-      The challenge of embedding third-party content into modern single-page applications has
-      long been a source of frustration. CSS conflicts, JavaScript collisions, and unexpected
-      side effects have plagued developers for years. Two primary approaches have emerged as
-      viable solutions: iframes and Shadow DOM.
-    </p>
-
-    <h2>The Isolation Problem</h2>
-    <p>
-      When you embed external content — whether it's a news article, a widget, or an
-      interactive visualization — you need guarantees that the embedded content won't break
-      your host application, and vice versa. This is the fundamental isolation problem.
-    </p>
-
-    <blockquote>
-      <p>"The best architecture is one where components can't accidentally hurt each other."</p>
-      <cite>— Alex Russell, Web Platform Team</cite>
-    </blockquote>
-
-    <h2>Performance Considerations</h2>
-    <p>
-      Recent benchmarks show that Shadow DOM rendering is up to 3x faster than equivalent
-      iframe-based solutions for content-heavy pages. The key difference lies in how the
-      browser handles document boundaries versus shadow boundaries.
-    </p>
-
-    <ul>
-      <li>Shadow DOM shares the main document's rendering pipeline</li>
-      <li>Iframes create entirely separate browsing contexts</li>
-      <li>Memory overhead for iframes scales linearly with each instance</li>
-      <li>Shadow DOM elements participate in the parent's layout flow</li>
-    </ul>
-
-    <h2>Developer Experience</h2>
-    <p>
-      From a developer experience standpoint, both approaches have trade-offs. Iframes
-      provide battle-tested isolation but require complex messaging patterns. Shadow DOM
-      offers more natural integration but requires careful handling of styles and events.
-    </p>
-
-    <div class="news-callout">
-      <strong>Key Takeaway:</strong> The choice between iframe and Shadow DOM depends on
-      your specific requirements around isolation level, performance needs, and the nature
-      of the content being embedded.
-    </div>
-
-    <p>
-      As browsers continue to improve their support for web components and shadow DOM APIs,
-      we can expect the developer experience gap to narrow further. The future points toward
-      a world where encapsulation is a first-class citizen of the web platform.
-    </p>
+  <div class="article-meta">
+    <span class="article-ref">AA/123/1234/ZZ</span>
+    <time class="article-date" datetime="2024-12-25">25 Dec 2024</time>
   </div>
 
-  <footer class="news-footer">
-    <div class="news-tags">
-      <a href="#" class="news-tag">Web Components</a>
-      <a href="#" class="news-tag">Shadow DOM</a>
-      <a href="#" class="news-tag">Frontend</a>
-      <a href="#" class="news-tag">Architecture</a>
+  <h1 class="article-title">The Impact of Quantum Computing on Modern Information Security</h1>
+
+  <hr class="article-divider" />
+
+  <div class="article-layout">
+    <div class="article-main">
+      <section class="executive-summary" id="executive-summary">
+        <h2 class="section-label">Executive Summary</h2>
+        <p>
+          An Article from Straits Times. China and Russia are "friends forever, never
+          enemies," Chinese's Foreign Minister Wang Yi said in remarks published on April
+          1 during a visit to Moscow in which he also welcomed signs of normalising ties
+          between Washington and Moscow. "The principle of 'friends forever, never
+          enemies' ... serves as a solid legal basis for advancing strategic cooperation at a
+          higher level," Mr Wang told Russia's RIA state news agency in an interview while
+          Wang is on a three-day visit to Moscow for strategic cooperation talks, a trip
+          overshadowed by uncertainty around talks to secure a ceasefire in Ukraine and
+          US President Donald Trump's criticism of the Russian and Ukrainian leaders.
+        </p>
+      </section>
+
+      <hr class="section-divider" />
+
+      <section id="section-heightened-terror">
+        <p class="section-header-label"><em>Heightened terror in China Section header</em></p>
+
+        <h3 class="numbered-heading">
+          1. Mr Putin would receive Mr Wang, who will also hold talks with his
+          Russian counterpart Sergei Lavrov
+        </h3>
+
+        <ul class="article-list">
+          <li>
+            Chinese President Xi Jinping has met Putin over 40 times in the past
+            decade and the two leaders have since agreed to deepen ties and
+            cooperate on issues such as Taiwan, Ukraine and mutual rival the United
+            States. The Kremlin said on March 31 that Mr Putin would receive Mr Wang,
+            who will also hold talks with his Russian counterpart Sergei Lavrov.
+          </li>
+          <li>
+            Mr Wang said current global conditions obliged big powers to act as
+            stabilising factors, so it was encouraging that Russia and the United States
+            had moved to improve relations.
+          </li>
+          <li>
+            The Kremlin said on March 31 that Russia and the United States were
+            working on ideas for a possible peace settlement in Ukraine and on building
+            bilateral ties. Since taking office in January, Trump has shifted the U.S. to a
+            more conciliatory stance towards Russia. "(This) is good for stabilising the
+            balance of power between major powers and inspires optimism in a
+            disappointing international situation," RIA cited Mr Wang as saying.
+          </li>
+        </ul>
+
+        <figure class="chart-figure">
+          <div class="chart-placeholder">
+            <div class="chart-accent-bar"></div>
+            <h4 class="chart-title">China's Rise to Russia's Most Important Trade Partner</h4>
+            <p class="chart-subtitle">Share of Russian imports from selected countries (in %)</p>
+            <div class="chart-legend">
+              <span class="legend-item"><span class="legend-dot" style="background:#c0392b"></span> China</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#2c3e50"></span> Germany</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#7f8c8d"></span> United States</span>
+            </div>
+            <div class="chart-visual">
+              <svg viewBox="0 0 400 200" class="line-chart">
+                <title>China's Rise to Russia's Most Important Trade Partner - Line Chart</title>
+                <!-- Grid lines -->
+                <line x1="50" y1="20" x2="50" y2="180" stroke="#eee" stroke-width="1"/>
+                <line x1="50" y1="180" x2="380" y2="180" stroke="#eee" stroke-width="1"/>
+                <line x1="50" y1="140" x2="380" y2="140" stroke="#eee" stroke-width="0.5" stroke-dasharray="4"/>
+                <line x1="50" y1="100" x2="380" y2="100" stroke="#eee" stroke-width="0.5" stroke-dasharray="4"/>
+                <line x1="50" y1="60" x2="380" y2="60" stroke="#eee" stroke-width="0.5" stroke-dasharray="4"/>
+                <line x1="50" y1="20" x2="380" y2="20" stroke="#eee" stroke-width="0.5" stroke-dasharray="4"/>
+
+                <!-- Y-axis labels -->
+                <text x="45" y="184" text-anchor="end" font-size="10" fill="#999">0</text>
+                <text x="45" y="144" text-anchor="end" font-size="10" fill="#999">5</text>
+                <text x="45" y="104" text-anchor="end" font-size="10" fill="#999">10</text>
+                <text x="45" y="64" text-anchor="end" font-size="10" fill="#999">15</text>
+                <text x="45" y="24" text-anchor="end" font-size="10" fill="#999">20</text>
+
+                <!-- X-axis labels -->
+                <text x="70" y="196" text-anchor="middle" font-size="10" fill="#999">2001</text>
+                <text x="148" y="196" text-anchor="middle" font-size="10" fill="#999">2005</text>
+                <text x="225" y="196" text-anchor="middle" font-size="10" fill="#999">2010</text>
+                <text x="303" y="196" text-anchor="middle" font-size="10" fill="#999">2015</text>
+                <text x="370" y="196" text-anchor="middle" font-size="10" fill="#999">2020</text>
+
+                <!-- China line (rising) -->
+                <polyline points="70,155 148,148 225,130 303,80 370,30" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+                <circle cx="370" cy="30" r="4" fill="#c0392b"/>
+                <rect x="355" y="15" width="35" height="18" rx="3" fill="#c0392b"/>
+                <text x="372" y="27" text-anchor="middle" font-size="9" fill="white" font-weight="bold">23.7</text>
+
+                <!-- Germany line (declining) -->
+                <polyline points="70,100 148,95 225,100 303,110 370,108" fill="none" stroke="#2c3e50" stroke-width="2.5"/>
+                <circle cx="370" cy="108" r="4" fill="#2c3e50"/>
+                <rect x="355" y="95" width="35" height="18" rx="3" fill="#2c3e50"/>
+                <text x="372" y="107" text-anchor="middle" font-size="9" fill="white" font-weight="bold">10.1</text>
+
+                <!-- US line (declining) -->
+                <polyline points="70,140 148,142 225,150 303,158 370,160" fill="none" stroke="#7f8c8d" stroke-width="2.5"/>
+                <circle cx="370" cy="160" r="4" fill="#7f8c8d"/>
+                <rect x="355" y="148" width="35" height="18" rx="3" fill="#7f8c8d"/>
+                <text x="372" y="160" text-anchor="middle" font-size="9" fill="white" font-weight="bold">5.7</text>
+              </svg>
+            </div>
+            <p class="chart-source">Source: Germany Trade & Invest</p>
+            <div class="chart-footer">
+              <div class="chart-social">
+                <span class="social-icon">&#9993;</span>
+                <span class="social-icon">&#9398;</span>
+                <span class="social-icon">&#9400;</span>
+              </div>
+              <div class="chart-brand">statista&#x1F4CA;</div>
+            </div>
+          </div>
+        </figure>
+      </section>
+
+      <section id="section-diverging-views">
+        <h3 class="numbered-heading">
+          2. Diverging views and the difficult situation on the battlefield
+        </h3>
+
+        <ul class="article-list">
+          <li>
+            Mr Wang also dismissed the notion that Mr Trump is trying to support
+            Russia in order to set it against China, condemning such ideas as a
+            "relapse of obsolete confrontational and bloc thinking".
+          </li>
+          <li>
+            Mr Wang said recent Ukraine ceasefire talks had already brought some
+            results and should continue, despite diverging views and the difficult
+            situation on the battlefield. "The step towards peace, although not that big,
+            is constructive - it's worth building on it," Mr Wang said. "With peace, it is no
+            pain no gain. You need to work hard to achieve it."
+          </li>
+          <li>
+            Beijing has proposed on its own, and together with Brazil, general principles
+            to end the conflict, but its ideas have received a tepid reception. "We
+            advocate eradicating the causes of the crisis through dialogue and
+            negotiations, ultimately achieving a fair, long-term, binding peace
+            agreement acceptable to all parties," Mr Wang said.
+          </li>
+        </ul>
+
+        <figure class="chart-figure">
+          <div class="chart-placeholder bar-chart-container">
+            <h4 class="chart-title">Russia Is Boosting China's Car Sales</h4>
+            <p class="chart-subtitle">Exports of finished vehicles that were made in China,<br/>by country (in thousands)*</p>
+            <div class="bar-chart">
+              <div class="bar-row"><span class="bar-label">Russia &#127479;&#127482;</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div><span class="bar-value">287</span></div></div>
+              <div class="bar-row"><span class="bar-label">Mexico &#127474;&#127485;</span><div class="bar-track"><div class="bar-fill" style="width:55.4%"></div><span class="bar-value">159</span></div></div>
+              <div class="bar-row"><span class="bar-label">Belgium &#127463;&#127466;</span><div class="bar-track"><div class="bar-fill" style="width:41.8%"></div><span class="bar-value">120</span></div></div>
+              <div class="bar-row"><span class="bar-label">Australia &#127462;&#127482;</span><div class="bar-track"><div class="bar-fill" style="width:35.2%"></div><span class="bar-value">101</span></div></div>
+              <div class="bar-row"><span class="bar-label">UK &#127468;&#127463;</span><div class="bar-track"><div class="bar-fill" style="width:31.4%"></div><span class="bar-value">90</span></div></div>
+              <div class="bar-row"><span class="bar-label">Saudi Arabia &#127480;&#127462;</span><div class="bar-track"><div class="bar-fill" style="width:30.3%"></div><span class="bar-value">87</span></div></div>
+              <div class="bar-row"><span class="bar-label">Thailand &#127481;&#127469;</span><div class="bar-track"><div class="bar-fill" style="width:24%"></div><span class="bar-value">69</span></div></div>
+              <div class="bar-row"><span class="bar-label">UAE &#127462;&#127466;</span><div class="bar-track"><div class="bar-fill" style="width:20.9%"></div><span class="bar-value">60</span></div></div>
+            </div>
+            <p class="chart-footnote">* Exports from January to May 2023</p>
+            <p class="chart-source">Source: Customs data compiled by the China Association<br/>of Automobile Manufacturers via Bloomberg</p>
+            <div class="chart-footer">
+              <div class="chart-social">
+                <span class="social-icon">&#9993;</span>
+                <span class="social-icon">&#9398;</span>
+                <span class="social-icon">&#9400;</span>
+              </div>
+              <div class="chart-brand">statista&#x1F4CA;</div>
+            </div>
+          </div>
+        </figure>
+      </section>
+
+      <section id="section-russian-dolls">
+        <p class="section-header-label"><em>Russian dolls and G.I Joes section header</em></p>
+
+        <h3 class="numbered-heading">
+          3. Pushing for a greater involvement of China in peace talks since the early
+          days of the war, which marked its third anniversary in February. Pushing
+          for a greater involvement of China in peace talks since the early days of
+          the war, which marked its third anniversary in February. Pushing for a
+          greater involvement of China in peace talks since the early days of the
+          war, which marked its third anniversary in February.
+        </h3>
+
+        <ul class="article-list">
+          <li>
+            The Kremlin said on March 31 that Russia and the United States were
+            working on ideas for a possible peace settlement in Ukraine and on building
+            bilateral ties. Since taking office in January, Trump has shifted the U.S. to a
+            more conciliatory stance towards Russia. "(This) is good for stabilising the
+            balance of power between major powers and inspires optimism in a
+            disappointing international situation," RIA cited Mr Wang as saying.
+          </li>
+          <li>
+            Mr Wang also dismissed the notion that Mr Trump is trying to support
+            Russia in order to set it against China, condemning such ideas as a
+            "relapse of obsolete confrontational and bloc thinking".
+          </li>
+          <li>
+            Mr Wang said recent Ukraine ceasefire talks had already brought some
+            results and should continue, despite diverging views and the difficult
+            situation on the battlefield. "The step towards peace, although not that big,
+            is constructive - it's worth building on it," Mr Wang said. "With peace, it is no
+            pain no gain. You need to work hard to achieve it."
+          </li>
+        </ul>
+      </section>
+
+      <div class="article-end-marker">~oOo~</div>
+      <p class="article-timestamp">Time: 10.00 a.m.</p>
     </div>
-    <div class="news-share">
-      <button type="button" class="news-share-btn" data-action="share">Share Article</button>
-      <button type="button" class="news-share-btn" data-action="bookmark">Bookmark</button>
-    </div>
-  </footer>
+
+    <aside class="article-toc" id="toc">
+      <h2 class="toc-title">Table of Contents</h2>
+      <nav>
+        <a href="#" class="toc-link" data-target="article-meta">Cover</a>
+        <a href="#" class="toc-link toc-active" data-target="executive-summary">
+          <span class="toc-indicator"></span>Executive Summary
+        </a>
+        <a href="#" class="toc-link" data-target="section-heightened-terror">Heightened terror in China Section header</a>
+        <a href="#" class="toc-link" data-target="section-russian-dolls">Russian dolls and<br/>G.I Joes section<br/>header</a>
+        <a href="#" class="toc-link toc-highlight" data-target="distribution-list">
+          Distribution List
+          <span class="toc-arrow">&#8250;</span>
+        </a>
+      </nav>
+    </aside>
+  </div>
+
+  <a href="#" class="back-to-top" id="back-to-top">
+    <span class="back-to-top-icon">&#8679;</span>
+    <span>Back to Top</span>
+  </a>
 </article>

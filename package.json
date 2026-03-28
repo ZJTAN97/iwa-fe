@@ -1,16 +1,16 @@
 {
-  "name": "shadowdom-iframe-poc",
-  "private": true,
-  "scripts": {
-    "dev:iframe": "pnpm --filter iframe-example dev",
-    "dev:shadow": "pnpm --filter shadow-dom-example dev",
-    "build:iframe": "pnpm --filter iframe-example build",
-    "build:shadow": "pnpm --filter shadow-dom-example build",
-    "check": "biome check .",
-    "check:fix": "biome check --fix .",
-    "format": "biome format --fix ."
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.4.9"
-  }
+	"name": "shadowdom-iframe-poc",
+	"private": true,
+	"scripts": {
+		"dev:iframe": "pnpm --filter iframe-example dev",
+		"dev:shadow": "pnpm --filter shadow-dom-example dev",
+		"build:iframe": "pnpm --filter iframe-example build",
+		"build:shadow": "pnpm --filter shadow-dom-example build",
+		"check": "biome check .",
+		"check:fix": "biome check --fix .",
+		"format": "biome format --fix ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.9"
+	}
 }

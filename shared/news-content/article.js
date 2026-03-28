@@ -4,76 +4,49 @@
  */
 
 (() => {
-	// Track reading progress
-	function initReadingProgress() {
-		const article = document.querySelector(".news-article");
-		if (!article) return;
-
-		const progressBar = document.createElement("div");
-		progressBar.style.cssText =
-			"position:fixed;top:0;left:0;height:3px;background:#e94560;transition:width 0.2s;z-index:9999;width:0%";
-		document.body.appendChild(progressBar);
-
-		function updateProgress() {
-			const rect = article.getBoundingClientRect();
-			const totalHeight = rect.height - window.innerHeight;
-			const progress = Math.min(
-				100,
-				Math.max(0, (-rect.top / totalHeight) * 100),
-			);
-			progressBar.style.width = `${progress}%`;
-		}
-		window.addEventListener("scroll", updateProgress, { passive: true });
-		updateProgress();
-	}
-
-	// Handle share/bookmark buttons
-	function initButtons() {
-		document.querySelectorAll(".news-share-btn").forEach((btn) => {
-			btn.addEventListener("click", function () {
-				const action = this.getAttribute("data-action");
-				if (action === "share") {
-					// Dispatch a custom event that the host app can listen to
-					const event = new CustomEvent("news-action", {
-						bubbles: true,
-						composed: true, // crosses shadow DOM boundary
-						detail: { type: "share", title: getArticleTitle() },
-					});
-					this.dispatchEvent(event);
-					this.textContent = "Link Copied!";
-					setTimeout(
-						function () {
-							this.textContent = "Share Article";
-						}.bind(this),
-						2000,
-					);
-				} else if (action === "bookmark") {
-					const event = new CustomEvent("news-action", {
-						bubbles: true,
-						composed: true,
-						detail: { type: "bookmark", title: getArticleTitle() },
-					});
-					this.dispatchEvent(event);
-					this.textContent =
-						this.textContent === "Bookmarked ✓" ? "Bookmark" : "Bookmarked ✓";
+	// Handle TOC navigation (scroll within shadow root container)
+	function initTocNavigation() {
+		const tocLinks = document.querySelectorAll(".toc-link[data-target]");
+		tocLinks.forEach((link) => {
+			link.addEventListener("click", function (e) {
+				e.preventDefault();
+				const targetId = this.getAttribute("data-target");
+				const target = document.querySelector(`#${targetId}`);
+				if (target) {
+					target.scrollIntoView({ behavior: "smooth", block: "start" });
 				}
+
+				// Update active state
+				for (const l of tocLinks) {
+					l.classList.remove("toc-active");
+				}
+				this.classList.add("toc-active");
 			});
 		});
 	}
 
-	function getArticleTitle() {
-		const titleEl = document.querySelector(".news-title");
-		return titleEl ? titleEl.textContent : "Unknown Article";
+	// Handle back to top
+	function initBackToTop() {
+		const backToTop = document.querySelector("#back-to-top");
+		if (!backToTop) return;
+
+		backToTop.addEventListener("click", (e) => {
+			e.preventDefault();
+			const article = document.querySelector(".news-article");
+			if (article) {
+				article.scrollIntoView({ behavior: "smooth", block: "start" });
+			}
+		});
 	}
 
 	// Initialize when DOM is ready
 	if (document.readyState === "loading") {
 		document.addEventListener("DOMContentLoaded", () => {
-			initReadingProgress();
-			initButtons();
+			initTocNavigation();
+			initBackToTop();
 		});
 	} else {
-		initReadingProgress();
-		initButtons();
+		initTocNavigation();
+		initBackToTop();
 	}
 })();

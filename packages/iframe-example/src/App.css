@@ -5,231 +5,249 @@
  */
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #f5f5f5;
-  color: #333;
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	background: #f5f5f5;
+	color: #333;
 }
 
-h1, h2, h3 {
-  color: #6c5ce7;
+h1,
+h2,
+h3 {
+	color: #6c5ce7;
 }
 
 a {
-  color: #0984e3;
+	color: #0984e3;
 }
 
 p {
-  line-height: 1.6;
+	line-height: 1.6;
 }
 
 .app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+	max-width: 960px;
+	margin: 0 auto;
 }
 
-.app-header {
-  background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
-  color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  margin-bottom: 2rem;
+/* ===== Article Toolbar (host React app header) ===== */
+.article-toolbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.6rem 1.5rem;
+	background: #fff;
+	border-bottom: 1px solid #e2e8f0;
+	position: sticky;
+	top: 0;
+	z-index: 100;
 }
 
-.app-header h1 {
-  color: white;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
+/* ===== Read Progress Bar ===== */
+.toolbar-progress-bar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 3px;
+	background: #2c5282;
+	transition: width 0.3s ease;
 }
 
-.app-header p {
-  opacity: 0.9;
-  font-size: 0.95rem;
+.toolbar-progress-bar--complete {
+	background: #38a169;
 }
 
-.app-badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  margin-bottom: 1rem;
+.toolbar-actions {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
 }
 
+.toolbar-btn {
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: #555;
+	transition:
+		color 0.2s,
+		background 0.2s;
+}
+
+.toolbar-back {
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: #2c5282;
+	padding: 0.4rem 0.5rem;
+	border-radius: 6px;
+}
+
+.toolbar-back:hover {
+	background: #edf2f7;
+}
+
+.toolbar-back-arrow {
+	font-size: 1.1rem;
+}
+
+.toolbar-icon {
+	padding: 0.5rem;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.toolbar-icon:hover {
+	background: #edf2f7;
+	color: #1a365d;
+}
+
+.toolbar-mark-read {
+	font-size: 0.85rem;
+	font-weight: 600;
+	padding: 0.45rem 1rem;
+	border-radius: 6px;
+	background: #2c5282;
+	color: #fff;
+	margin-left: 0.25rem;
+}
+
+.toolbar-mark-read:hover {
+	background: #2b6cb0;
+}
+
+.toolbar-mark-read--active {
+	background: #38a169;
+}
+
+.toolbar-mark-read--active:hover {
+	background: #2f855a;
+}
+
+.toolbar-dark-toggle {
+	font-size: 1.1rem;
+	padding: 0.4rem 0.6rem;
+	border-radius: 6px;
+	margin-left: 0.25rem;
+}
+
+.toolbar-dark-toggle:hover {
+	background: #edf2f7;
+}
+
+/* ===== Content area ===== */
 .app-content {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 2rem;
-  align-items: start;
-}
-
-.app-sidebar {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.app-sidebar h2 {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-
-.app-sidebar ul {
-  list-style: none;
-}
-
-.app-sidebar li {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #eee;
-  font-size: 0.9rem;
-}
-
-.app-sidebar li:last-child {
-  border-bottom: none;
+	display: flex;
+	flex-direction: column;
 }
 
 .embed-container {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.embed-label {
-  background: #dfe6e9;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #636e72;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+	background: white;
+	overflow: hidden;
 }
 
 .event-log {
-  margin-top: 2rem;
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	margin-top: 0;
+	background: white;
+	padding: 1.5rem;
+	border-top: 1px solid #e2e8f0;
 }
 
 .event-log h2 {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+	font-size: 1.1rem;
+	margin-bottom: 1rem;
 }
 
 .event-log-entries {
-  font-family: "SF Mono", "Fira Code", monospace;
-  font-size: 0.8rem;
-  max-height: 200px;
-  overflow-y: auto;
+	font-family: "SF Mono", "Fira Code", monospace;
+	font-size: 0.8rem;
+	max-height: 200px;
+	overflow-y: auto;
 }
 
 .event-log-entry {
-  padding: 0.4rem 0;
-  border-bottom: 1px solid #f0f0f0;
-  color: #555;
+	padding: 0.4rem 0;
+	border-bottom: 1px solid #f0f0f0;
+	color: #555;
 }
 
 .event-log-empty {
-  color: #999;
-  font-style: italic;
+	color: #999;
+	font-style: italic;
 }
 
-/* Dark mode toggle button */
-.dark-mode-toggle {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.5rem 1.25rem;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.dark-mode-toggle:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.6);
-}
-
-.dark-mode-hint {
-  font-size: 0.8rem;
-  opacity: 0.75;
-  margin-top: 0.75rem;
-}
-
-/* Host app dark mode */
+/* ===== Host app dark mode ===== */
 .app-dark {
-  background: #1a1a2e;
-  min-height: 100vh;
+	background: #1a1a2e;
+	min-height: 100vh;
 }
 
-.app-dark body,
 body:has(.app-dark) {
-  background: #1a1a2e;
+	background: #1a1a2e;
 }
 
-.app-dark .app-header {
-  background: linear-gradient(135deg, #2d1b69 0%, #4a2d8a 100%);
+.app-dark .article-toolbar {
+	background: #16213e;
+	border-bottom-color: #333;
 }
 
-.app-dark .app-sidebar {
-  background: #16213e;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+.app-dark .toolbar-progress-bar {
+	background: #a3bffa;
 }
 
-.app-dark .app-sidebar h2 {
-  color: #a29bfe;
+.app-dark .toolbar-progress-bar--complete {
+	background: #68d391;
 }
 
-.app-dark .app-sidebar li {
-  border-bottom-color: #2d2d4e;
-  color: #ccc;
+.app-dark .toolbar-btn {
+	color: #ccc;
+}
+
+.app-dark .toolbar-back {
+	color: #a3bffa;
+}
+
+.app-dark .toolbar-back:hover,
+.app-dark .toolbar-icon:hover,
+.app-dark .toolbar-dark-toggle:hover {
+	background: #2d2d4e;
 }
 
 .app-dark .embed-container {
-  background: #16213e;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.app-dark .embed-label {
-  background: #2d2d4e;
-  color: #aaa;
+	background: #1a1a2e;
 }
 
 .app-dark .event-log {
-  background: #16213e;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	background: #16213e;
+	border-top-color: #333;
 }
 
 .app-dark .event-log h2 {
-  color: #a29bfe;
+	color: #a29bfe;
 }
 
 .app-dark .event-log-entry {
-  color: #bbb;
-  border-bottom-color: #2d2d4e;
+	color: #bbb;
+	border-bottom-color: #2d2d4e;
 }
 
 .app-dark .event-log-empty {
-  color: #666;
+	color: #666;
 }
 
 @media (max-width: 768px) {
-  .app-content {
-    grid-template-columns: 1fr;
-  }
+	.article-toolbar {
+		padding: 0.5rem 1rem;
+	}
 }

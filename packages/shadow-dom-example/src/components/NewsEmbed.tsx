@@ -1,48 +1,35 @@
 import { useEffect } from "react";
-import { useShadowDom } from "../hooks/use-shadow-dom";
-import articleHtml from "../../../../shared/news-content/article.html?raw";
 import articleCss from "../../../../shared/news-content/article.css?raw";
+import articleHtml from "../../../../shared/news-content/article.html?raw";
 import articleJs from "../../../../shared/news-content/article.js?raw";
+import { useShadowDom } from "../hooks/use-shadow-dom";
 
 interface NewsEmbedProps {
-  onNewsAction?: (detail: { type: string; title: string }) => void;
-  darkMode?: boolean;
+	onShadowReady?: (shadow: ShadowRoot) => void;
+	darkMode?: boolean;
 }
 
-export function NewsEmbed({ onNewsAction, darkMode }: NewsEmbedProps) {
-  const { hostRef, shadowRef } = useShadowDom({
-    html: articleHtml,
-    css: articleCss,
-    js: articleJs,
-  });
+export function NewsEmbed({ onShadowReady, darkMode }: NewsEmbedProps) {
+	const { hostRef, shadowRef } = useShadowDom({
+		html: articleHtml,
+		css: articleCss,
+		js: articleJs,
+	});
 
-  // Listen for composed custom events crossing the shadow boundary
-  useEffect(() => {
-    const host = hostRef.current;
-    if (!host) return;
+	// Notify parent when shadow root is ready
+	useEffect(() => {
+		if (shadowRef.current) {
+			onShadowReady?.(shadowRef.current);
+		}
+	}, [shadowRef, onShadowReady]);
 
-    const handler = ((e: CustomEvent) => {
-      onNewsAction?.(e.detail);
-    }) as EventListener;
+	// Toggle dark mode directly on the shadow DOM content
+	useEffect(() => {
+		const shadow = shadowRef.current;
+		if (!shadow) return;
+		const article = shadow.querySelector(".news-article");
+		article?.classList.toggle("dark-mode", !!darkMode);
+	}, [shadowRef, darkMode]);
 
-    host.addEventListener("news-action", handler);
-    return () => host.removeEventListener("news-action", handler);
-  }, [hostRef, onNewsAction]);
-
-  // Toggle dark mode directly on the shadow DOM content — no messaging needed
-  useEffect(() => {
-    const shadow = shadowRef.current;
-    if (!shadow) return;
-    const article = shadow.querySelector(".news-article");
-    article?.classList.toggle("dark-mode", !!darkMode);
-  }, [shadowRef, darkMode]);
-
-
-  return (
-    <div
-      ref={hostRef}
-      data-news-shadow-host
-      style={{ minHeight: 200 }}
-    />
-  );
+	return <div ref={hostRef} data-news-shadow-host style={{ minHeight: 200 }} />;
 }

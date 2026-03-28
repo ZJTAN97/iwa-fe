@@ -1,4 +1,4 @@
-import { useRef, useEffect, type RefObject } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 
 interface UseShadowDomOptions {
 	html: string;
@@ -35,7 +35,6 @@ export function useShadowDom({
 		const container = document.createElement("div");
 		container.innerHTML = html;
 		shadow.appendChild(container);
-
 
 		// Execute external JS with a document proxy that scopes
 		// DOM queries to the shadow root

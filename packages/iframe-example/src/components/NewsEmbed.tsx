@@ -1,19 +1,19 @@
-import { useRef, useEffect, useState } from "react";
-import articleHtml from "../../../../shared/news-content/article.html?raw";
+import { useEffect, useRef, useState } from "react";
 import articleCss from "../../../../shared/news-content/article.css?raw";
+import articleHtml from "../../../../shared/news-content/article.html?raw";
 import articleJs from "../../../../shared/news-content/article.js?raw";
 
 interface NewsEmbedProps {
-  onNewsAction?: (detail: { type: string; title: string }) => void;
-  darkMode?: boolean;
+	onNewsAction?: (detail: { type: string; title: string }) => void;
+	darkMode?: boolean;
 }
 
 export function NewsEmbed({ onNewsAction, darkMode }: NewsEmbedProps) {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [height, setHeight] = useState(600);
+	const iframeRef = useRef<HTMLIFrameElement>(null);
+	const [height, setHeight] = useState(600);
 
-  // Build the full HTML document for srcdoc
-  const srcdoc = `
+	// Build the full HTML document for srcdoc
+	const srcdoc = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +24,7 @@ export function NewsEmbed({ onNewsAction, darkMode }: NewsEmbedProps) {
 <body>
   ${articleHtml}
   <script>
-    // Override the news-action custom event to use postMessage instead,
-    // since custom events can't cross iframe boundaries.
+    // Forward news-action events to parent via postMessage
     document.addEventListener('news-action', function(e) {
       window.parent.postMessage({
         type: 'news-action',
@@ -43,6 +42,34 @@ export function NewsEmbed({ onNewsAction, darkMode }: NewsEmbedProps) {
       }
     });
 
+    // Track read progress via IntersectionObserver and send to parent
+    (function() {
+      var sections = document.querySelectorAll('section[id]');
+      if (sections.length === 0) return;
+      var totalSections = sections.length;
+      var readSet = {};
+
+      var observer = new IntersectionObserver(function(entries) {
+        var changed = false;
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !readSet[entry.target.id]) {
+            readSet[entry.target.id] = true;
+            changed = true;
+          }
+        });
+        if (changed) {
+          var readIds = Object.keys(readSet);
+          window.parent.postMessage({
+            type: 'read-progress',
+            percentage: Math.round((readIds.length / totalSections) * 100),
+            sectionsRead: readIds
+          }, '*');
+        }
+      }, { threshold: 0.5 });
+
+      sections.forEach(function(s) { observer.observe(s); });
+    })();
+
     // Send height to parent for auto-resizing
     function sendHeight() {
       window.parent.postMessage({
@@ -59,41 +86,41 @@ export function NewsEmbed({ onNewsAction, darkMode }: NewsEmbedProps) {
 </body>
 </html>`;
 
-  // Send dark mode state to iframe via postMessage whenever it changes
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe?.contentWindow) return;
-    iframe.contentWindow.postMessage(
-      { type: "set-dark-mode", enabled: !!darkMode },
-      "*"
-    );
-  }, [darkMode]);
+	// Send dark mode state to iframe via postMessage whenever it changes
+	useEffect(() => {
+		const iframe = iframeRef.current;
+		if (!iframe?.contentWindow) return;
+		iframe.contentWindow.postMessage(
+			{ type: "set-dark-mode", enabled: !!darkMode },
+			"*",
+		);
+	}, [darkMode]);
 
-  useEffect(() => {
-    function handleMessage(event: MessageEvent) {
-      if (event.data?.type === "resize") {
-        setHeight(event.data.height);
-      } else if (event.data?.type === "news-action" && onNewsAction) {
-        onNewsAction(event.data.detail);
-      }
-    }
+	useEffect(() => {
+		function handleMessage(event: MessageEvent) {
+			if (event.data?.type === "resize") {
+				setHeight(event.data.height);
+			} else if (event.data?.type === "news-action" && onNewsAction) {
+				onNewsAction(event.data.detail);
+			}
+		}
 
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [onNewsAction]);
+		window.addEventListener("message", handleMessage);
+		return () => window.removeEventListener("message", handleMessage);
+	}, [onNewsAction]);
 
-  return (
-    <iframe
-      ref={iframeRef}
-      srcDoc={srcdoc}
-      style={{
-        width: "100%",
-        height: `${height}px`,
-        border: "none",
-        display: "block",
-      }}
-      title="Embedded news article"
-      sandbox="allow-scripts"
-    />
-  );
+	return (
+		<iframe
+			ref={iframeRef}
+			srcDoc={srcdoc}
+			style={{
+				width: "100%",
+				height: `${height}px`,
+				border: "none",
+				display: "block",
+			}}
+			title="Embedded news article"
+			sandbox="allow-scripts"
+		/>
+	);
 }
