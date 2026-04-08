@@ -6,9 +6,10 @@ import articleJs from "../../../../shared/news-content/article.js?raw";
 interface NewsEmbedProps {
 	onNewsAction?: (detail: { type: string; title: string }) => void;
 	darkMode?: boolean;
+	onBookmark?: (articleId: string) => Promise<void>;
 }
 
-export function NewsEmbed({ onNewsAction, darkMode }: NewsEmbedProps) {
+export function NewsEmbed({ onNewsAction, darkMode, onBookmark }: NewsEmbedProps) {
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 	const [height, setHeight] = useState(600);
 
@@ -81,6 +82,23 @@ export function NewsEmbed({ onNewsAction, darkMode }: NewsEmbedProps) {
     new ResizeObserver(sendHeight).observe(document.body);
     window.addEventListener('load', sendHeight);
 
+    // Bookmark button: notify the host on click so it can make the API call.
+    // The host sends 'bookmark-saved' back when the call completes.
+    (function() {
+      var btn = document.querySelector('.bookmark-btn');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        btn.disabled = true;
+        btn.textContent = 'Saving...';
+        window.parent.postMessage({ type: 'bookmark-clicked', articleId: 'AA/123/1234/ZZ' }, '*');
+      });
+      window.addEventListener('message', function(e) {
+        if (e.data && e.data.type === 'bookmark-saved') {
+          btn.textContent = 'Bookmarked!';
+        }
+      });
+    })();
+
     ${articleJs}
   </script>
 </body>
@@ -97,17 +115,22 @@ export function NewsEmbed({ onNewsAction, darkMode }: NewsEmbedProps) {
 	}, [darkMode]);
 
 	useEffect(() => {
-		function handleMessage(event: MessageEvent) {
+		async function handleMessage(event: MessageEvent) {
 			if (event.data?.type === "resize") {
 				setHeight(event.data.height);
 			} else if (event.data?.type === "news-action" && onNewsAction) {
 				onNewsAction(event.data.detail);
+			} else if (event.data?.type === "bookmark-clicked" && onBookmark) {
+				// Host makes the API call, then notifies the iframe so it can update its UI.
+				// Roundtrip postMessage is required because the host has no direct DOM access.
+				await onBookmark(event.data.articleId);
+				iframeRef.current?.contentWindow?.postMessage({ type: "bookmark-saved" }, "*");
 			}
 		}
 
 		window.addEventListener("message", handleMessage);
 		return () => window.removeEventListener("message", handleMessage);
-	}, [onNewsAction]);
+	}, [onNewsAction, onBookmark]);
 
 	return (
 		<iframe

@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { NewsEmbed } from "./components/NewsEmbed";
+import { bookmarkArticle } from "./api/progress";
 import { useReadProgress } from "./hooks/use-read-progress";
 
 interface EventLogEntry {
@@ -24,6 +25,11 @@ function App() {
 				...prev,
 			]);
 		},
+		[],
+	);
+
+	const handleBookmark = useCallback(
+		(articleId: string) => bookmarkArticle(articleId),
 		[],
 	);
 
@@ -122,7 +128,7 @@ function App() {
 
 			<div className="app-content">
 				<div className="embed-container">
-					<NewsEmbed onNewsAction={handleNewsAction} darkMode={darkMode} />
+					<NewsEmbed onNewsAction={handleNewsAction} darkMode={darkMode} onBookmark={handleBookmark} />
 				</div>
 
 				<div className="event-log">

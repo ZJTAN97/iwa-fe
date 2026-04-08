@@ -1,19 +1,19 @@
 import { useCallback, useRef, useState } from "react";
 import { NewsEmbed } from "./components/NewsEmbed";
+import { bookmarkArticle } from "./api/progress";
 import { useReadProgress } from "./hooks/use-read-progress";
 
-interface EventLogEntry {
-	timestamp: string;
-	message: string;
-}
-
 function App() {
-	const [events, setEvents] = useState<EventLogEntry[]>([]);
 	const [darkMode, setDarkMode] = useState(false);
 	const [isRead, setIsRead] = useState(false);
 	const shadowRef = useRef<ShadowRoot | null>(null);
 	const { percentage } = useReadProgress(shadowRef, "AA/123/1234/ZZ");
 	const isComplete = percentage === 100;
+
+	const handleBookmark = useCallback(
+		(articleId: string) => bookmarkArticle(articleId),
+		[],
+	);
 
 	return (
 		<div className={`app${darkMode ? " app-dark" : ""}`}>
@@ -115,6 +115,7 @@ function App() {
 							shadowRef.current = shadow;
 						}}
 						darkMode={darkMode}
+						onBookmark={handleBookmark}
 					/>
 				</div>
 			</div>
