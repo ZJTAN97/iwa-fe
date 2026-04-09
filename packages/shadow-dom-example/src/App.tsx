@@ -5,8 +5,8 @@ import {
 	Container,
 	Group,
 	Progress,
+	useMantineColorScheme,
 } from "@mantine/core";
-import { useMantineColorScheme } from "@mantine/core";
 import {
 	IconArrowLeft,
 	IconMoon,
@@ -15,10 +15,9 @@ import {
 	IconTypography,
 	IconUsers,
 } from "@tabler/icons-react";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { TocSidebar } from "../../../shared/components/TocSidebar/TocSidebar";
 import classes from "./App.module.css";
-import { bookmarkArticle } from "./api/progress";
 import { NewsEmbed } from "./components/NewsEmbed";
 import { useReadProgress } from "./hooks/use-read-progress";
 import { useToc } from "./hooks/use-toc";
@@ -31,11 +30,6 @@ function App() {
 	const { percentage } = useReadProgress(shadowRef, "AA/123/1234/ZZ");
 	const { entries, activeSectionId, scrollToSection } = useToc({ shadowRef });
 	const isComplete = percentage === 100;
-
-	const handleBookmark = useCallback(
-		(articleId: string) => bookmarkArticle(articleId),
-		[],
-	);
 
 	return (
 		<Container size="md" p={0}>
@@ -91,7 +85,6 @@ function App() {
 							shadowRef.current = shadow;
 						}}
 						darkMode={isDark}
-						onBookmark={handleBookmark}
 					/>
 				</Box>
 				<TocSidebar
