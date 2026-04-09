@@ -1,0 +1,49 @@
+.sidebar {
+	width: 200px;
+	flex-shrink: 0;
+	position: sticky;
+	top: 60px;
+	align-self: flex-start;
+	padding: 1rem 0;
+}
+
+.title {
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: light-dark(#555, #999);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin-bottom: 0.75rem;
+}
+
+.link {
+	display: block;
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	font-size: 0.8rem;
+	color: light-dark(#555, #999);
+	padding: 0.4rem 0 0.4rem 0.75rem;
+	border: none;
+	border-left: 3px solid transparent;
+	cursor: pointer;
+	line-height: 1.4;
+	text-align: left;
+	width: 100%;
+	background: none;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.link:hover {
+	color: light-dark(#1a365d, #a3bffa);
+}
+
+.active {
+	border-left-color: light-dark(#2c5282, #a3bffa);
+	color: light-dark(#1a365d, #a3bffa);
+	font-weight: 600;
+}

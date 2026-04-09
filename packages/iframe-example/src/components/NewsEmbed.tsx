@@ -7,12 +7,14 @@ interface NewsEmbedProps {
 	onNewsAction?: (detail: { type: string; title: string }) => void;
 	darkMode?: boolean;
 	onBookmark?: (articleId: string) => Promise<void>;
+	onIframeReady?: (iframe: HTMLIFrameElement) => void;
 }
 
 export function NewsEmbed({
 	onNewsAction,
 	darkMode,
 	onBookmark,
+	onIframeReady,
 }: NewsEmbedProps) {
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 	const [height, setHeight] = useState(600);
@@ -103,6 +105,54 @@ export function NewsEmbed({
       });
     })();
 
+    // Respond to TOC section requests from host
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'request-toc-sections') {
+        var sections = [];
+        var meta = document.querySelector('#article-meta');
+        if (meta) {
+          sections.push({ id: meta.id, label: 'Cover', offsetTop: meta.offsetTop });
+        }
+        var sectionEls = document.querySelectorAll('section[id]');
+        sectionEls.forEach(function(s) {
+          var heading = s.querySelector('.section-header-label em, .section-label, .numbered-heading');
+          var label = heading ? heading.textContent.trim() : s.id;
+          sections.push({ id: s.id, label: label, offsetTop: s.offsetTop });
+        });
+        window.parent.postMessage({ type: 'toc-sections', sections: sections }, '*');
+      }
+    });
+
+    // Track active section and report to host
+    (function() {
+      var allTargets = [];
+      var meta = document.querySelector('#article-meta');
+      if (meta) allTargets.push(meta);
+      var sectionEls = document.querySelectorAll('section[id]');
+      sectionEls.forEach(function(s) { allTargets.push(s); });
+      if (allTargets.length === 0) return;
+
+      var observer = new IntersectionObserver(function(entries) {
+        var topmost = null;
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            var top = entries[i].boundingClientRect.top;
+            if (!topmost || top < topmost.top) {
+              topmost = { id: entries[i].target.id, top: top };
+            }
+          }
+        }
+        if (topmost) {
+          window.parent.postMessage({
+            type: 'active-section-changed',
+            sectionId: topmost.id
+          }, '*');
+        }
+      }, { threshold: 0.1 });
+
+      allTargets.forEach(function(el) { observer.observe(el); });
+    })();
+
     ${articleJs}
   </script>
 </body>
@@ -145,6 +195,9 @@ export function NewsEmbed({
 		<iframe
 			ref={iframeRef}
 			srcDoc={srcdoc}
+			onLoad={() => {
+				if (iframeRef.current) onIframeReady?.(iframeRef.current);
+			}}
 			style={{
 				width: "100%",
 				height: `${height}px`,

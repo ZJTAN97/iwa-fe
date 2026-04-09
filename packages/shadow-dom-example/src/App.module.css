@@ -19,7 +19,14 @@
 	right: 0;
 }
 
+.contentLayout {
+	display: flex;
+	align-items: flex-start;
+}
+
 .embedContainer {
+	flex: 1;
+	min-width: 0;
 	background: light-dark(#fff, var(--mantine-color-dark-7));
 	overflow: hidden;
 }

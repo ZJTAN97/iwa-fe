@@ -92,71 +92,6 @@ a:hover {
 	min-width: 0;
 }
 
-/* ===== Table of Contents (sidebar) ===== */
-.article-toc {
-	width: 200px;
-	flex-shrink: 0;
-	position: sticky;
-	top: 1rem;
-}
-
-.toc-title {
-	font-family:
-		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-	font-size: 0.8rem;
-	font-weight: 600;
-	color: #555;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	margin-bottom: 0.75rem;
-}
-
-.toc-link {
-	display: block;
-	font-family:
-		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-	font-size: 0.8rem;
-	color: #555;
-	padding: 0.4rem 0;
-	padding-left: 0.75rem;
-	border-left: 3px solid transparent;
-	text-decoration: none;
-	line-height: 1.4;
-}
-
-.toc-link:hover {
-	color: #1a365d;
-	text-decoration: none;
-}
-
-.toc-link.toc-active {
-	border-left-color: #2c5282;
-	color: #1a365d;
-	font-weight: 600;
-}
-
-.toc-indicator {
-	display: none;
-}
-
-.toc-link.toc-highlight {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background: #edf2f7;
-	border-radius: 6px;
-	padding: 0.6rem 0.75rem;
-	margin-top: 0.5rem;
-	border-left: none;
-	color: #2c5282;
-	font-weight: 500;
-}
-
-.toc-arrow {
-	font-size: 1.2rem;
-	color: #2c5282;
-}
-
 /* ===== Section labels ===== */
 .section-label {
 	font-family:
@@ -493,24 +428,6 @@ a:hover {
 
 .news-article.dark-mode .numbered-heading {
 	color: #e0e0e0;
-}
-
-.news-article.dark-mode .toc-title {
-	color: #999;
-}
-
-.news-article.dark-mode .toc-link {
-	color: #999;
-}
-
-.news-article.dark-mode .toc-link.toc-active {
-	color: #a3bffa;
-	border-left-color: #a3bffa;
-}
-
-.news-article.dark-mode .toc-link.toc-highlight {
-	background: #2d2d4e;
-	color: #a3bffa;
 }
 
 .news-article.dark-mode .chart-placeholder {

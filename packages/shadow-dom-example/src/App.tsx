@@ -5,7 +5,6 @@ import {
 	Container,
 	Group,
 	Progress,
-	Stack,
 } from "@mantine/core";
 import { useMantineColorScheme } from "@mantine/core";
 import {
@@ -17,10 +16,12 @@ import {
 	IconUsers,
 } from "@tabler/icons-react";
 import { useCallback, useRef, useState } from "react";
+import { TocSidebar } from "../../../shared/components/TocSidebar/TocSidebar";
 import classes from "./App.module.css";
 import { bookmarkArticle } from "./api/progress";
 import { NewsEmbed } from "./components/NewsEmbed";
 import { useReadProgress } from "./hooks/use-read-progress";
+import { useToc } from "./hooks/use-toc";
 
 function App() {
 	const [isRead, setIsRead] = useState(false);
@@ -28,6 +29,7 @@ function App() {
 	const isDark = colorScheme === "dark";
 	const shadowRef = useRef<ShadowRoot | null>(null);
 	const { percentage } = useReadProgress(shadowRef, "AA/123/1234/ZZ");
+	const { entries, activeSectionId, scrollToSection } = useToc({ shadowRef });
 	const isComplete = percentage === 100;
 
 	const handleBookmark = useCallback(
@@ -82,7 +84,7 @@ function App() {
 				</Group>
 			</Box>
 
-			<Stack gap={0}>
+			<div className={classes.contentLayout}>
 				<Box className={classes.embedContainer}>
 					<NewsEmbed
 						onShadowReady={(shadow) => {
@@ -92,7 +94,12 @@ function App() {
 						onBookmark={handleBookmark}
 					/>
 				</Box>
-			</Stack>
+				<TocSidebar
+					entries={entries}
+					activeSectionId={activeSectionId}
+					onEntryClick={scrollToSection}
+				/>
+			</div>
 		</Container>
 	);
 }

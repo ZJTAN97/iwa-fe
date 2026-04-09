@@ -19,11 +19,13 @@ import {
 	IconTypography,
 	IconUsers,
 } from "@tabler/icons-react";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { TocSidebar } from "../../../shared/components/TocSidebar/TocSidebar";
 import classes from "./App.module.css";
 import { bookmarkArticle } from "./api/progress";
 import { NewsEmbed } from "./components/NewsEmbed";
 import { useReadProgress } from "./hooks/use-read-progress";
+import { useToc } from "./hooks/use-toc";
 
 interface EventLogEntry {
 	timestamp: string;
@@ -35,7 +37,9 @@ function App() {
 	const [isRead, setIsRead] = useState(false);
 	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 	const isDark = colorScheme === "dark";
+	const iframeRef = useRef<HTMLIFrameElement | null>(null);
 	const { percentage } = useReadProgress("AA/123/1234/ZZ");
+	const { entries, activeSectionId, scrollToSection } = useToc({ iframeRef });
 	const isComplete = percentage === 100;
 
 	const handleNewsAction = useCallback(
@@ -104,13 +108,23 @@ function App() {
 			</Box>
 
 			<Stack gap={0}>
-				<Box className={classes.embedContainer}>
-					<NewsEmbed
-						onNewsAction={handleNewsAction}
-						darkMode={isDark}
-						onBookmark={handleBookmark}
+				<div className={classes.contentLayout}>
+					<Box className={classes.embedContainer}>
+						<NewsEmbed
+							onNewsAction={handleNewsAction}
+							darkMode={isDark}
+							onBookmark={handleBookmark}
+							onIframeReady={(iframe) => {
+								iframeRef.current = iframe;
+							}}
+						/>
+					</Box>
+					<TocSidebar
+						entries={entries}
+						activeSectionId={activeSectionId}
+						onEntryClick={scrollToSection}
 					/>
-				</Box>
+				</div>
 
 				<Paper p="lg" radius={0} className={classes.eventLog}>
 					<Text size="lg" fw={600} mb="md">
