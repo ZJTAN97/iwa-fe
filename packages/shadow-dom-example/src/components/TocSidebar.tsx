@@ -16,7 +16,7 @@ export const entries = [
 	},
 	{
 		id: "section-diverging-views",
-		label: "Diverging views and the difficult situation on the battlefield",
+		label: "Diverging views",
 	},
 	{
 		id: "section-video-briefing",

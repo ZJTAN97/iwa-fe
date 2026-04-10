@@ -1,3 +1,4 @@
+import { PieChart } from "@mantine/charts";
 import {
 	ActionIcon,
 	Box,
@@ -5,7 +6,8 @@ import {
 	Container,
 	Flex,
 	Group,
-	Progress,
+	Stack,
+	Text,
 	useMantineColorScheme,
 } from "@mantine/core";
 import {
@@ -90,15 +92,37 @@ export function NewsEmbed() {
 	return (
 		<div>
 			<Box component="header" className={classes.toolbar}>
-				<Progress
+				{/* <Progress
 					value={percentage}
 					size={3}
 					color={isComplete ? "green" : "blue.7"}
 					className={classes.progressBar}
-				/>
-				<Button variant="subtle" leftSection={<IconArrowLeft size={18} />}>
+				/> */}
+				<Button variant="transparent" leftSection={<IconArrowLeft size={18} />}>
 					Back
 				</Button>
+				{percentage > 7 ? (
+					<Stack gap={2}>
+						<Flex gap="xs" align="center">
+							<PieChart
+								size={12}
+								data={[
+									{ name: "Read", value: 100 - percentage, color: "gray.0" },
+									{ name: "Unread", value: percentage, color: "blue.6" },
+								]}
+								startAngle={-270}
+							/>
+							<Text size="xs" c="blue.6">
+								In Progress · 4 minutes
+							</Text>
+						</Flex>
+
+						<Text size="sm" c="blue.9">
+							The Impact of Quantum Computing on Modern Information Security
+						</Text>
+					</Stack>
+				) : null}
+
 				<Group gap="lg">
 					<ActionIcon variant="subtle" color="blue.9" title="People">
 						<IconUsers size={20} />
