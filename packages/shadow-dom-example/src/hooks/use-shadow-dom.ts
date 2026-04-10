@@ -1,4 +1,4 @@
-import { type RefObject, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface UseShadowDomOptions {
 	html: string;
@@ -6,16 +6,10 @@ interface UseShadowDomOptions {
 	js?: string;
 }
 
-interface UseShadowDomResult {
-	hostRef: RefObject<HTMLDivElement | null>;
-	shadowRef: RefObject<ShadowRoot | null>;
-}
+export function useShadowDom({ html, css, js }: UseShadowDomOptions) {
+	const style = document.createElement("style");
+	const container = document.createElement("div");
 
-export function useShadowDom({
-	html,
-	css,
-	js,
-}: UseShadowDomOptions): UseShadowDomResult {
 	const hostRef = useRef<HTMLDivElement | null>(null);
 	const shadowRef = useRef<ShadowRoot | null>(null);
 
@@ -28,12 +22,10 @@ export function useShadowDom({
 		shadowRef.current = shadow;
 
 		// Inject styles
-		const style = document.createElement("style");
 		style.textContent = css;
 		shadow.appendChild(style);
 
 		// Inject HTML
-		const container = document.createElement("div");
 		container.innerHTML = html;
 		shadow.appendChild(container);
 
@@ -58,7 +50,7 @@ export function useShadowDom({
 			// this "activates" the JS
 			scriptFn(shadow, docProxy, window);
 		}
-	}, [html, css, js]);
+	}, [html, css, js, container, style]);
 
-	return { hostRef, shadowRef };
+	return { hostRef, shadowRef, container };
 }

@@ -20,7 +20,6 @@ import { TocSidebar } from "../../../shared/components/TocSidebar/TocSidebar";
 import classes from "./App.module.css";
 import { NewsEmbed } from "./components/NewsEmbed";
 import { useReadProgress } from "./hooks/use-read-progress";
-import { useToc } from "./hooks/use-toc";
 
 function App() {
 	const [isRead, setIsRead] = useState(false);
@@ -28,7 +27,6 @@ function App() {
 	const isDark = colorScheme === "dark";
 	const shadowRef = useRef<ShadowRoot | null>(null);
 	const { percentage } = useReadProgress(shadowRef, "AA/123/1234/ZZ");
-	const { entries, activeSectionId, scrollToSection } = useToc({ shadowRef });
 	const isComplete = percentage === 100;
 
 	return (
@@ -87,11 +85,7 @@ function App() {
 						darkMode={isDark}
 					/>
 				</Box>
-				<TocSidebar
-					entries={entries}
-					activeSectionId={activeSectionId}
-					onEntryClick={scrollToSection}
-				/>
+				<TocSidebar shadowRef={shadowRef} />
 			</div>
 		</Container>
 	);
