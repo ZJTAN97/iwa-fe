@@ -133,6 +133,30 @@ a:hover {
 	margin-bottom: 1rem;
 }
 
+/* ===== Two-column section ===== */
+.two-column-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	margin: 1rem 0 2rem;
+}
+
+.two-column-item {
+	flex: 1 1 18rem;
+	min-width: 0;
+	padding: 1rem 1.25rem;
+	background: #f7f7f9;
+	border-left: 3px solid #2c5282;
+	border-radius: 2px;
+}
+
+.two-column-item p {
+	font-size: 0.95rem;
+	line-height: 1.7;
+	color: #333;
+	margin-top: 0.5rem;
+}
+
 /* ===== Article lists ===== */
 .article-list {
 	list-style: disc;
@@ -406,6 +430,15 @@ a:hover {
 .news-article.dark-mode .chart-placeholder {
 	background: #16213e;
 	border-color: #333;
+}
+
+.news-article.dark-mode .two-column-item {
+	background: #16213e;
+	border-left-color: #4a90e2;
+}
+
+.news-article.dark-mode .two-column-item p {
+	color: #ccc;
 }
 
 .news-article.dark-mode .chart-title {

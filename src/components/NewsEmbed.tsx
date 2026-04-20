@@ -6,10 +6,13 @@ import {
 	Container,
 	Flex,
 	Group,
+	Modal,
+	Slider,
 	Stack,
 	Text,
 	useMantineColorScheme,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import {
 	IconArrowLeft,
 	IconArrowUp,
@@ -19,7 +22,7 @@ import {
 	IconTypography,
 	IconUsers,
 } from "@tabler/icons-react";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import css from "../../shared/news-content/article.css?raw";
 import html from "../../shared/news-content/article.html?raw";
 import js from "../../shared/news-content/article.js?raw";
@@ -34,10 +37,31 @@ export function NewsEmbed() {
 	const hostRef = useRef<HTMLDivElement | null>(null);
 	const shadowRef = useRef<ShadowRoot | null>(null);
 	const [isRead, setIsRead] = useState(false);
+	const fontScaleRef = useRef(1);
+	const [fontModalOpened, { open: openFontModal, close: closeFontModal }] =
+		useDisclosure(false);
+
 	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 	const isDark = colorScheme === "dark";
 	const { percentage } = useReadProgress(hostRef, "AA/123/1234/ZZ");
 	const isComplete = percentage === 100;
+
+	const applyFontScale = (scale: number) => {
+		fontScaleRef.current = scale;
+		const article =
+			shadowRef.current?.querySelector<HTMLElement>(".news-article");
+		if (article) article.style.zoom = String(scale);
+	};
+
+	const applyDarkMode = (dark: boolean) => {
+		const article = shadowRef.current?.querySelector(".news-article");
+		article?.classList.toggle("dark-mode", dark);
+	};
+
+	const handleToggleColorScheme = () => {
+		applyDarkMode(!isDark);
+		toggleColorScheme();
+	};
 
 	// TODO: Research if its better to use useLayoutEffect or useSyncExternalStore instead
 	useLayoutEffect(() => {
@@ -55,6 +79,10 @@ export function NewsEmbed() {
 		// Inject HTML
 		containerRef.current.innerHTML = html;
 		shadow.appendChild(containerRef.current);
+
+		// Apply initial dark mode state; subsequent toggles update the shadow DOM
+		// imperatively via handleToggleColorScheme.
+		applyDarkMode(isDark);
 
 		// Execute external JS with a document proxy that scopes DOM queries to the shadow root
 		// this is the "contract" we will need to discuss cross teams, basically what APIs are we gona define instead of us trying to catch all
@@ -79,26 +107,9 @@ export function NewsEmbed() {
 		}
 	}, []);
 
-	// Toggle dark mode directly on the shadow DOM content
-	useEffect(() => {
-		const shadow = shadowRef.current;
-		if (!shadow) return;
-		const article = shadow.querySelector(".news-article");
-
-		if (article) {
-			article.classList.toggle("dark-mode", !!isDark);
-		}
-	}, [isDark]);
-
 	return (
 		<div>
 			<Box component="header" className={classes.toolbar}>
-				{/* <Progress
-					value={percentage}
-					size={3}
-					color={isComplete ? "green" : "blue.7"}
-					className={classes.progressBar}
-				/> */}
 				<Button variant="transparent" leftSection={<IconArrowLeft size={18} />}>
 					Back
 				</Button>
@@ -128,7 +139,12 @@ export function NewsEmbed() {
 					<ActionIcon variant="subtle" color="blue.9" title="People">
 						<IconUsers size={20} />
 					</ActionIcon>
-					<ActionIcon variant="subtle" color="blue.9" title="Font size">
+					<ActionIcon
+						variant="subtle"
+						color="blue.9"
+						title="Font size"
+						onClick={openFontModal}
+					>
 						<IconTypography size={20} />
 					</ActionIcon>
 					<ActionIcon variant="subtle" color="blue.9" title="Like">
@@ -144,7 +160,7 @@ export function NewsEmbed() {
 					<ActionIcon
 						variant="subtle"
 						color="gray.8"
-						onClick={() => toggleColorScheme()}
+						onClick={handleToggleColorScheme}
 						title="Toggle dark mode"
 					>
 						{isDark ? <IconSun size={20} /> : <IconMoon size={20} />}
@@ -172,6 +188,44 @@ export function NewsEmbed() {
 					</Text>
 				</Box>
 			) : null}
+			<Modal
+				opened={fontModalOpened}
+				onClose={closeFontModal}
+				title="Adjust font size"
+				centered
+				size="sm"
+			>
+				<Stack gap="xl">
+					<Text size="sm" c="dimmed">
+						Drag the slider to adjust the article text size. Changes apply
+						immediately.
+					</Text>
+					<Flex align="center" gap="md">
+						<Text size="xs" c="dimmed">
+							A
+						</Text>
+						<Slider
+							flex={1}
+							defaultValue={fontScaleRef.current}
+							onChange={applyFontScale}
+							min={0.75}
+							max={1.75}
+							step={0.05}
+							label={(v) => `${Math.round(v * 100)}%`}
+							marks={[
+								{ value: 0.75 },
+								{ value: 1, label: "Default" },
+								{ value: 1.25 },
+								{ value: 1.5 },
+								{ value: 1.75 },
+							]}
+						/>
+						<Text size="xl" c="dimmed">
+							A
+						</Text>
+					</Flex>
+				</Stack>
+			</Modal>
 		</div>
 	);
 }
