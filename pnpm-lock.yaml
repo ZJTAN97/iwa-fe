@@ -15,49 +15,6 @@ importers:
         specifier: ^19.2.14
         version: 19.2.14
 
-  packages/iframe-example:
-    dependencies:
-      '@mantine/core':
-        specifier: ^9.0.1
-        version: 9.0.1(@mantine/hooks@9.0.1(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@mantine/hooks':
-        specifier: ^9.0.1
-        version: 9.0.1(react@19.2.4)
-      '@tabler/icons-react':
-        specifier: ^3.41.1
-        version: 3.41.1(react@19.2.4)
-      react:
-        specifier: ^19.2.4
-        version: 19.2.4
-      react-dom:
-        specifier: ^19.2.4
-        version: 19.2.4(react@19.2.4)
-    devDependencies:
-      '@types/react':
-        specifier: ^19.2.14
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      '@vitejs/plugin-react':
-        specifier: ^6.0.1
-        version: 6.0.1(vite@8.0.7(sugarss@5.0.1(postcss@8.5.9)))
-      postcss:
-        specifier: ^8.5.9
-        version: 8.5.9
-      postcss-preset-mantine:
-        specifier: ^1.18.0
-        version: 1.18.0(postcss@8.5.9)
-      postcss-simple-vars:
-        specifier: ^7.0.1
-        version: 7.0.1(postcss@8.5.9)
-      typescript:
-        specifier: ~6.0.2
-        version: 6.0.2
-      vite:
-        specifier: ^8.0.7
-        version: 8.0.7(sugarss@5.0.1(postcss@8.5.9))
-
   packages/shadow-dom-example:
     dependencies:
       '@mantine/charts':
