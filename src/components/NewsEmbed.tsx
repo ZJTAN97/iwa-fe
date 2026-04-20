@@ -20,9 +20,9 @@ import {
 	IconUsers,
 } from "@tabler/icons-react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import css from "../../../../shared/news-content/article.css?raw";
-import html from "../../../../shared/news-content/article.html?raw";
-import js from "../../../../shared/news-content/article.js?raw";
+import css from "../../shared/news-content/article.css?raw";
+import html from "../../shared/news-content/article.html?raw";
+import js from "../../shared/news-content/article.js?raw";
 import { useReadProgress } from "../hooks/use-read-progress";
 import classes from "./NewsEmbed.module.css";
 import { TocSidebar } from "./TocSidebar";
