@@ -26,6 +26,10 @@ export const entries = [
 		id: "section-russian-dolls",
 		label: "Russian dolls and G.I Joes section header",
 	},
+	{
+		id: "section-two-columns",
+		label: "Two Column Example with Container Queries"
+	}
 ];
 
 interface TocSidebarProps {

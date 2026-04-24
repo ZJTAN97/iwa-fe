@@ -504,14 +504,7 @@ a:hover {
   gap: 1em;
 }
 
-@container (width < 500px) {
-  .cGrid {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-}
-
-@media (width < 500px) {
+@container (width < 700px) {
   .cGrid {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;

@@ -5,6 +5,11 @@
 	top: 60px;
 	align-self: flex-start;
 	padding: 1rem 0;
+
+	@media(max-width: $mantine-breakpoint-sm) {
+		display: none;
+	}
+
 }
 
 .title {

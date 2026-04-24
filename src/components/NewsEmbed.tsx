@@ -12,7 +12,7 @@ import {
 	Text,
 	useMantineColorScheme,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import {
 	IconArrowLeft,
 	IconArrowUp,
@@ -36,6 +36,9 @@ import { TocSidebar } from "./TocSidebar";
 export function NewsEmbed() {
 	const styleRef = useRef(document.createElement("style"));
 	const containerRef = useRef(document.createElement("div"));
+
+
+	const isMobile = useMediaQuery("(max-width: 48em)", true);
 
 	const hostRef = useRef<HTMLDivElement | null>(null);
 	const shadowRef = useRef<ShadowRoot | null>(null);
@@ -68,7 +71,6 @@ export function NewsEmbed() {
 		toggleColorScheme();
 	};
 
-	// TODO: Research if its better to use useLayoutEffect or useSyncExternalStore instead
 	useLayoutEffect(() => {
 		const host = hostRef.current;
 		if (!host || shadowRef.current) return;
@@ -143,7 +145,7 @@ export function NewsEmbed() {
 				<Button variant="transparent" leftSection={<IconArrowLeft size={18} />}>
 					Back
 				</Button>
-				{percentage > 7 ? (
+				{percentage > 7 && !isMobile ? (
 					<Stack gap={2}>
 						<Flex gap="xs" align="center">
 							<PieChart
@@ -180,13 +182,7 @@ export function NewsEmbed() {
 					<ActionIcon variant="subtle" color="blue.9" title="Like">
 						<IconThumbUp size={20} />
 					</ActionIcon>
-					<Button
-						size="xs"
-						color={isRead || isComplete ? "green" : "blue.8"}
-						onClick={() => setIsRead((r) => !r)}
-					>
-						{isRead || isComplete ? "✓ Read" : "Mark Read"}
-					</Button>
+
 					<ActionIcon
 						variant="subtle"
 						color="gray.8"
